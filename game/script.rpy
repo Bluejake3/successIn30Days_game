@@ -14,6 +14,7 @@ label start:
     $ money = 500
     $ energy = 100
     scene city with fade
+    play music "audio/song1.mp3"
 
     "Setelah mencari pekerjaan, akhirnya kamu mendapat sebuah pekerjaan yang kamu impikan"
 
@@ -74,7 +75,11 @@ label routines_menu:
 
 label endCheck:
 
-    if(days >= 30):
+    if(money < 0):
+        jump miskin
+    elif (stress >= 100):
+        jump gila 
+    elif(days >= 30):
         if(money >=3000):
             if(stress <50):
                 jump kayaBahagia
@@ -85,19 +90,17 @@ label endCheck:
                 jump bahagia 
             else:
                 jump menderita
-    elif(money < 0):
-        jump miskin
-    elif (stress >= 100):
-        jump gila 
+    
     elif(energy <= 0):
-        scene bedroom with dissolve
-        "Kamu terlalu lelah sehingga kamu jatuh sakit. Kamu memanggil dokter dan memutuskan untuk beristirahat untuk 5 hari"
-        $ days += 5
-        $ energy = 20
-        $ money -= 300
-
-
+        call sick
     jump routines_menu
+
+label sick:
+    scene bedroom with dissolve
+    "Kamu terlalu lelah sehingga kamu jatuh sakit. Kamu memanggil dokter dan memutuskan untuk beristirahat untuk 5 hari"
+    $ days += 5
+    $ energy = 20
+    $ money -= 300
             
 
         
